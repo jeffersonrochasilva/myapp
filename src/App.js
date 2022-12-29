@@ -1,33 +1,45 @@
-import React from "react";
+import React, { Component } from "react";
+import Membro from "./components/Membro";
 
-const BemVindo = (props) => {
-  return (
-    <div>
-      <h2>
-        Bem vindo {props.nome} que tem a idade de: {props.idade}
-      </h2>
-      <Equipe nome={props.nome} idade={props.idade} cargo={props.cargo} />
-    </div>
-  );
-};
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      nome: "jefferson",
+      contador: 0,
+    };
+    this.aumentar = this.aumentar.bind(this);
+    this.diminuir = this.diminuir.bind(this);
+  }
 
-const Equipe = (props) => {
-  return (
-    <div>
-      <h3>
-        hello, eu sou o {props.nome} e tenho {props.idade}, e o meu cargo é{" "}
-        {props.cargo}
-      </h3>
-    </div>
-  );
-};
+  aumentar() {
+    let state = this.state; // isso compia toda a state para a variavel
+    state.contador += 1; // isso dá o acesso a variavel dentro da este e muda o seu stado
+    state.nome = "aumentando";
+    this.setState(state); // isso altera a state por completo
+  }
 
-export default function app() {
-  return (
-    <div>
-      <h1>hello word</h1>
-      <BemVindo nome="matheus" idade="42" cargo="development" />
-      <BemVindo nome="Jefferson" idade="29" cargo="ajudante de almocahrifado" />
-    </div>
-  );
+  diminuir() {
+    let state = this.state;
+    state.contador -= 1;
+    state.nome = "diminuindo";
+    this.setState(state);
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Hello word {this.state.nome}</h1>
+        <div>
+          <button onClick={this.diminuir}>-</button>
+          <h3>contador: {this.state.contador}</h3>
+          <button onClick={this.aumentar}>+</button>
+          <hr />
+          <Membro nome="Visitante" />
+        </div>
+      </div>
+    );
+  }
 }
+
+export default App;
